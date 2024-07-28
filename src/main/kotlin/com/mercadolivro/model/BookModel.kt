@@ -23,6 +23,8 @@ data class BookModel(
         set(value) {
             if (value == BookStatus.CANCELADO || value == BookStatus.DELETADO) {
                 throw BadRequestException(Errors.ML102.code, Errors.ML102.message.format(value.name))
+            } else if (value == BookStatus.VENDIDO) {
+                throw BadRequestException(Errors.ML103.code, Errors.ML103.message)
             }
             field = value
         }

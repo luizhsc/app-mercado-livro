@@ -9,6 +9,7 @@ import com.mercadolivro.repository.BookRepository
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
+import java.awt.print.Book
 
 @Service
 class BookService(
@@ -29,7 +30,8 @@ class BookService(
     }
 
     fun findById(id: Int): BookModel {
-        return bookRepository.findById(id).orElseThrow { NotFoundException(Errors.ML101.code, Errors.ML101.message.format(id)) }
+        return bookRepository.findById(id)
+            .orElseThrow { NotFoundException(Errors.ML101.code, Errors.ML101.message.format(id)) }
     }
 
     fun delete(id: Int) {
@@ -47,6 +49,15 @@ class BookService(
         books.forEach {
             it.status = BookStatus.DELETADO
         }
+        bookRepository.saveAll(books)
+    }
+
+    fun findAllByIds(booksIds: List<Int>): List<BookModel> {
+        return bookRepository.findAllById(booksIds)
+    }
+
+    fun purchase(books: MutableList<BookModel>) {
+        books.map { it.status = BookStatus.VENDIDO }
         bookRepository.saveAll(books)
     }
 
