@@ -7,6 +7,9 @@ enum class Errors(val code: String, val message: String) {
     ML102("ML-102", "Book status [%s] can not be deleted"),
     ML103("ML-103", "Book can not be seller"),
 
-    ML201("ML-201", "Customer [%s] not exist!")
+    ML201("ML-201", "Customer [%s] not exist!"),
+
+    ML997("ML-997", "Invalid refresh token"),
+    ML998("ML-998", "User not found")
 
 }

@@ -1,6 +1,7 @@
 package com.mercadolivro.controller.response
 
-data class AuthenticateResponse (
+data class AuthenticationResponse (
     val accessToken: String,
+    val refreshToken: String
 )
 

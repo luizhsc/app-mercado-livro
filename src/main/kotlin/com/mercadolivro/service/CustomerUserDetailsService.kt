@@ -1,5 +1,6 @@
 package com.mercadolivro.service
 
+import com.mercadolivro.enums.Errors
 import com.mercadolivro.exception.AuthenticationException
 import com.mercadolivro.model.CustomerModel
 import com.mercadolivro.repository.CustomerRepository
@@ -16,8 +17,10 @@ class CustomerUserDetailsService(
 ) : UserDetailsService {
 
     override fun loadUserByUsername(username: String): UserDetails =
-        mapToUserDetails( customerRepository.findByEmail(username)
-            .orElseThrow({ AuthenticationException("998", "Usuário não encontrado") }))
+        mapToUserDetails(
+            customerRepository.findByEmail(username)
+                .orElseThrow({ AuthenticationException(Errors.ML998.code, Errors.ML998.message) })
+        )
 
     private fun mapToUserDetails(customer: CustomerModel): UserDetails =
         User.builder()

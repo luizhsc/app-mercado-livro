@@ -7,6 +7,7 @@ import com.mercadolivro.controller.request.PutCustomerRequest
 import com.mercadolivro.controller.response.BookReponse
 import com.mercadolivro.controller.response.CustomerReponse
 import com.mercadolivro.controller.response.PurchaseResponse
+import com.mercadolivro.controller.response.TokenResponse
 import com.mercadolivro.enums.BookStatus
 import com.mercadolivro.enums.CustomerStatus
 import com.mercadolivro.model.BookModel
@@ -56,5 +57,11 @@ fun PurchaseModel.toResponse(): PurchaseResponse {
         nfe = this.nfe,
         price = this.price,
         createdAt = this.createdAt
+    )
+}
+
+fun String.toResponse(): TokenResponse {
+    return TokenResponse(
+        token = this
     )
 }
