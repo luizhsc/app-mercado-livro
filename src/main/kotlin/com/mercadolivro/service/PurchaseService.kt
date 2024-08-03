@@ -1,9 +1,6 @@
 package com.mercadolivro.service
 
-import com.mercadolivro.controller.response.PurchaseResponse
 import com.mercadolivro.events.PurchaseEvent
-import com.mercadolivro.extension.toResponse
-import com.mercadolivro.model.CustomerModel
 import com.mercadolivro.model.PurchaseModel
 import com.mercadolivro.repository.PurchaseRepository
 import org.springframework.context.ApplicationEventPublisher
