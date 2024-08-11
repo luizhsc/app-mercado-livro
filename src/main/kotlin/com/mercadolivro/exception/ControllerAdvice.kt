@@ -45,4 +45,32 @@ class ControllerAdvice {
         )
         return ResponseEntity(erro, HttpStatus.UNPROCESSABLE_ENTITY)
     }
+
+    @ExceptionHandler(AccessDeniedException::class)
+    fun handleUnathorizedException(
+        ex: AccessDeniedException,
+        request: WebRequest
+    ): ResponseEntity<ErrorResponse> {
+        val erro = ErrorResponse(
+            code = Errors.ML996.code,
+            message = Errors.ML996.message,
+            null
+        )
+        return ResponseEntity(erro, HttpStatus.UNAUTHORIZED)
+    }
+
+
+    @ExceptionHandler(AuthenticationException::class)
+    fun handleAuthenticationException(
+        ex: AuthenticationException,
+        request: WebRequest
+    ): ResponseEntity<ErrorResponse> {
+        val erro = ErrorResponse(
+            code = Errors.ML998.code,
+            message = Errors.ML998.message,
+            null
+        )
+        return ResponseEntity(erro, HttpStatus.FORBIDDEN)
+    }
+
 }

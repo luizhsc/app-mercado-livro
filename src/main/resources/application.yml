@@ -12,6 +12,5 @@ spring:
   jackson:
     default-property-inclusion: non_null
 jwt:
-  key: 8Zz5tw0Ionm3XPZZfN0NOml3z9FMfmpgXwovR9fp6ryDIoGRM8EPHAB6iHsc0fb
-  access-token-expiration: 3600000
-  refresh-token-expiration: 86400000
+  secret: eyJhbGciOiJIUzI1NiJ9.eyJSb2xlIjoiQWRtaW4iLCJJc3N1ZXIiOiJJc3
+  expiration: 3600000

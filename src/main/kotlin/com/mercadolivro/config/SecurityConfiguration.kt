@@ -1,5 +1,7 @@
 package com.mercadolivro.config
 
+import com.mercadolivro.security.AuthenticationFilter
+import com.mercadolivro.security.AuthorizationFilter
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.HttpMethod
@@ -20,26 +22,21 @@ class SecurityConfiguration(
     private val PUBLIC_MATCHERS = arrayOf<String>()
 
     private val PUBLIC_POST_MATCHERS = arrayOf(
-        "/login",
-        "/customers",
-        "/books"
+        "/customers"
     )
 
     @Bean
     fun securityFilterChain(
         http: HttpSecurity,
-        jwtAuthenticationFilter: JwtAuthenticationFilter
+        authenticationFilter: AuthenticationFilter,
+        authorizationFilter: AuthorizationFilter
     ): DefaultSecurityFilterChain =
         http
             .csrf { it.disable() }
             .authorizeHttpRequests {
                 it
-                    .requestMatchers("/auth/**", "/error")
-                    .permitAll()
-                    .requestMatchers(*PUBLIC_MATCHERS)
-                    .permitAll()
-                    .requestMatchers(HttpMethod.POST, *PUBLIC_POST_MATCHERS)
-                    .hasRole("ADMIN")
+                    .requestMatchers(*PUBLIC_MATCHERS).permitAll()
+                    .requestMatchers(HttpMethod.POST, *PUBLIC_POST_MATCHERS).permitAll()
                     .anyRequest()
                     .fullyAuthenticated()
             }
@@ -47,7 +44,8 @@ class SecurityConfiguration(
                 it.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             }
             .authenticationProvider(authenticationProvider)
-            .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter::class.java)
+            .addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter::class.java)
+            .addFilterBefore(authorizationFilter, UsernamePasswordAuthenticationFilter::class.java)
             .build()
 
 }

@@ -9,7 +9,9 @@ enum class Errors(val code: String, val message: String) {
 
     ML201("ML-201", "Customer [%s] not exist!"),
 
-    ML997("ML-997", "Invalid refresh token"),
-    ML998("ML-998", "User not found")
+    ML996("ML-996", "Forbidden"),
+    ML997("ML-997", "Invalid token"),
+    ML998("ML-998", "User not found"),
+    ML999("ML-999", "Not Authorized")
 
 }
